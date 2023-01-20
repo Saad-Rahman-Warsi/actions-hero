@@ -12,3 +12,15 @@ jobs:
       - name: "dump github context"
         run: echo '${{ toJSON(github.event) }}' | jq
         shell: bash 
+        
+      - name: Create comment
+        uses: peter-evans/create-or-update-comment@v1
+        with:
+          issue-number: ${{ github.event.issue.number }}
+          body: |
+            This is a multi-line test comment
+            - With github **markdown** :sparkles:
+            - Created by [create-or-update-comment] '${{ toJSON(github.event) }}'
+            
+            [1]:  https://github.com/peter-evans/create-or-update-comment
+          reactions: '+1'
